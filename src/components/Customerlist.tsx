@@ -10,8 +10,7 @@ function Customerlist() {
 // state to hold customers fetched from API
   const [customers, setCustomers] = useState<Customer[]>([]);
 
-// when component mounts (appears on screen), fetch customers. this runs every time the component is rendered
-  useEffect(() => fetchCustomers(), []);
+  useEffect(() => fetchCustomers(), []); // empty dependency array ( run once on mount)
 
   // function to fetch customers from API and set state
   const fetchCustomers = () => {
