@@ -4,6 +4,7 @@ import { getTrainingsWithCustomer, deleteTraining } from "../api/trainingApi";
 import { DataGrid } from "@mui/x-data-grid";
 import type { GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import Button from "@mui/material/Button";
+import dayjs from "dayjs";
 
 function Traininglist() {
   const [trainings, setTrainings] = useState<Training[]>([]);
@@ -33,7 +34,11 @@ function Traininglist() {
   // column definitions for trainings table
   const columns: GridColDef[] = [
     { field: "activity", headerName: "Activity", width: 200 },
-    { field: "date", headerName: "Date", width: 200 },
+    { field: "date", headerName: "Date", width: 200, 
+  // value formatter and dayjs to format date 
+    valueFormatter: (value: Date) =>
+    dayjs(value).format("DD.MM.YYYY HH:mm")},
+    
     { field: "duration", headerName: "Duration (min)", width: 150 },
     {
       field: "customerName",
@@ -62,7 +67,7 @@ function Traininglist() {
   ];
 
   return (
-    <div style={{ width: "100%", height: 500 }}>
+    <div style={{ width: "60%", height: 500 }}>
       <DataGrid
         rows={trainings}
         columns={columns}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
 import AppBar from "@mui/material/AppBar";

@@ -56,7 +56,7 @@ function Customerlist() {
   ];
 
   return (
-    <div style={{ width: "100%", height: 500}}>
+    <div style={{ width: "80%", height: 500}}>
 {/* renders table of customers defined above */}
       <DataGrid
         rows={customers}  // populate rows with customers from state
