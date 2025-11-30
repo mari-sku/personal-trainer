@@ -1,9 +1,16 @@
 import { useEffect, useState } from "react";
 import type { Customer } from "../types/customer";
 import { getCustomers, deleteCustomer } from "../api/customerApi";
+import EditCustomer from "./EditCustomer";
+import AddCustomer from "./AddCustomer";
+import AddTraining from "./AddTraining";
+import { getTrainings } from "../api/trainingApi";
+
+// MUI components
 import { DataGrid } from "@mui/x-data-grid";
 import type { GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import Button from "@mui/material/Button";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 function Customerlist() {
 
@@ -50,14 +57,40 @@ function Customerlist() {
           size="small"
           onClick={() => handleDelete(params.id as string)}
         >
-          Delete
+          <DeleteIcon />
         </Button>
-    }
-  ];
+    },
 
+// edit customer column  
+{
+  headerName: "",
+  sortable: false,
+  filterable: false,
+  field: "_links.customer.href",
+  renderCell: (params: GridRenderCellParams) =>
+      <EditCustomer
+          fetchCustomers={fetchCustomers}
+          customerRow={params.row}
+      />
+},
+{
+    headerName: "",
+    sortable: false,
+    filterable: false,
+    field: "addTraining",
+     width: 180,
+    renderCell: (params: GridRenderCellParams) => 
+    <AddTraining 
+        fetchTrainings={getTrainings} 
+        customerUrl={params.row._links.self.href} 
+    />
+}
+  ];
   return (
-    <div style={{ width: "80%", height: 500}}>
-{/* renders table of customers defined above */}
+    <div style={{ width: "90%", height: 500}}>
+      {/* renders table of customers as defined above */}
+      {/* load 'add customer' button (component) before datagrid */}
+      <AddCustomer fetchCustomers={fetchCustomers} />
       <DataGrid
         rows={customers}  // populate rows with customers from state
         columns={columns} // use columns defined above

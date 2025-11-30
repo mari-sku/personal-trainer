@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
 import type { Training } from "../types/training";
 import { getTrainingsWithCustomer, deleteTraining } from "../api/trainingApi";
+import dayjs from "dayjs";
+
+// MUI components
 import { DataGrid } from "@mui/x-data-grid";
 import type { GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import Button from "@mui/material/Button";
-import dayjs from "dayjs";
+import DeleteIcon from '@mui/icons-material/Delete';
+
 
 function Traininglist() {
   const [trainings, setTrainings] = useState<Training[]>([]);
@@ -61,7 +65,7 @@ function Traininglist() {
           size="small"
           onClick={() => handleDelete(params.row.id)}
         >
-          Delete
+          <DeleteIcon />
         </Button>
     }
   ];
