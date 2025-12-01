@@ -15,9 +15,11 @@ import ListItemText from "@mui/material/ListItemText";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import DirectionsRunIcon from "@mui/icons-material/DirectionsRun";
+import CalendarTodayIcon from "@mui/icons-material/CalendarToday"; 
 
 import Customerlist from "./components/Customerlist";
 import Traininglist from "./components/Traininglist";
+import TrainingCalendar from "./components/TrainingCalendar";
 
 const drawerWidth = 240;
 
@@ -25,9 +27,9 @@ export default function App() {
 
   // drawer functionality and code are from MUI persistent drawer example
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [selectedPage, setSelectedPage] = useState<"customers" | "trainings">("customers");
+  const [selectedPage, setSelectedPage] = useState<"customers" | "trainings" | "calendar">("customers"); 
 
-  const handleSelectPage = (page: "customers" | "trainings") => {
+  const handleSelectPage = (page: "customers" | "trainings" | "calendar") => {
     setSelectedPage(page);
     setDrawerOpen(false); // close drawer after selection
   };
@@ -110,6 +112,16 @@ export default function App() {
               <ListItemText primary="Trainings" />
             </ListItemButton>
           </ListItem>
+
+          {/* calendar menu item on drawer */}
+          <ListItem disablePadding>
+            <ListItemButton onClick={() => handleSelectPage("calendar")}>
+              <ListItemIcon>
+                <CalendarTodayIcon/>
+              </ListItemIcon>
+              <ListItemText primary="Calendar" />
+            </ListItemButton>
+          </ListItem>
         </List>
       </Drawer>
 
@@ -128,9 +140,10 @@ export default function App() {
           marginLeft: drawerOpen ? `${drawerWidth}px` : 0, // shift content right when drawer is open; flush left when closed
         }}
       >
-    {/* conditionally render page components */}
+        {/* conditionally render page components */}
         {selectedPage === "customers" && <Customerlist />}
         {selectedPage === "trainings" && <Traininglist />}
+        {selectedPage === "calendar" && <TrainingCalendar />}
       </Box>
     </Box>
   );
