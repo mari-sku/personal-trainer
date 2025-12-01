@@ -58,7 +58,8 @@ function Customerlist() {
           onClick={() => handleDelete(params.id as string)}
         >
           <DeleteIcon />
-        </Button>
+        </Button>,
+        disableExport: true
     },
 
 // edit customer column  
@@ -70,8 +71,8 @@ function Customerlist() {
   renderCell: (params: GridRenderCellParams) =>
       <EditCustomer
           fetchCustomers={fetchCustomers}
-          customerRow={params.row}
-      />
+          customerRow={params.row}/>,
+          disableExport: true
 },
 {
     headerName: "",
@@ -83,7 +84,8 @@ function Customerlist() {
     <AddTraining 
         fetchTrainings={getTrainings} 
         customerUrl={params.row._links.self.href} 
-    />
+    />,
+    disableExport: true
 }
   ];
   return (
@@ -97,6 +99,19 @@ function Customerlist() {
         getRowId={row => row._links.self.href} // unique row id from HAL self link
         autoPageSize    // automatically adjust page size based on container
         rowSelection={false} // disable row selection. could be enabled for more features?
+
+        // for CSV export
+        showToolbar //Toolbar enabled
+        slotProps={{  // ADDED CSV options
+        toolbar: {
+        csvOptions: {
+        fileName: "customerDataBase",
+        delimiter: ";",
+        utf8WithBom: true,
+        allColumns: false, // only export visible columns (defined in columns with disableExport: true)
+      },
+    },
+  }}
       />
     </div>
   );
