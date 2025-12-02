@@ -16,10 +16,12 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import DirectionsRunIcon from "@mui/icons-material/DirectionsRun";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday"; 
+import BarChartIcon from "@mui/icons-material/BarChart";
 
 import Customerlist from "./components/Customerlist";
 import Traininglist from "./components/Traininglist";
 import TrainingCalendar from "./components/TrainingCalendar";
+import TrainingCharts from "./components/TrainingCharts";
 
 const drawerWidth = 240;
 
@@ -27,9 +29,9 @@ export default function App() {
 
   // drawer functionality and code are from MUI persistent drawer example
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [selectedPage, setSelectedPage] = useState<"customers" | "trainings" | "calendar">("customers"); 
+  const [selectedPage, setSelectedPage] = useState<"customers" | "trainings" | "calendar" | "charts">("customers"); 
 
-  const handleSelectPage = (page: "customers" | "trainings" | "calendar") => {
+  const handleSelectPage = (page: "customers" | "trainings" | "calendar" | "charts") => {
     setSelectedPage(page);
     setDrawerOpen(false); // close drawer after selection
   };
@@ -122,6 +124,16 @@ export default function App() {
               <ListItemText primary="Calendar" />
             </ListItemButton>
           </ListItem>
+
+          {/* statistics menu item on drawer */}
+          <ListItem disablePadding>
+              <ListItemButton onClick={() => handleSelectPage("charts")}>
+                <ListItemIcon>
+                 <BarChartIcon />
+              </ListItemIcon>
+         <ListItemText primary="Statistics" />
+       </ListItemButton>
+      </ListItem>
         </List>
       </Drawer>
 
@@ -144,6 +156,8 @@ export default function App() {
         {selectedPage === "customers" && <Customerlist />}
         {selectedPage === "trainings" && <Traininglist />}
         {selectedPage === "calendar" && <TrainingCalendar />}
+        {selectedPage === "charts" && <TrainingCharts />}
+
       </Box>
     </Box>
   );
