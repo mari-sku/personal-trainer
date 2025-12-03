@@ -42,8 +42,17 @@ export default function AddCustomer({ fetchCustomers }: AddCustomerProps) {
   };
 
   const handleSave = () => {
-    if (!customer.firstname || !customer.lastname) {
-      alert("Firstname and lastname required");
+    if (isNaN(Number(customer.postcode))) {
+        alert("Postcode must be a number");
+        return;
+      }
+      if (isNaN(Number(customer.phone))) {
+        alert("Phone must be a number");
+        return;
+      }
+    if (!customer.firstname || !customer.lastname || !customer.streetaddress || !customer.postcode ||
+        !customer.city || !customer.email || !customer.phone) {
+      alert("All fields are required");
       return;
     }
 
